@@ -18,7 +18,9 @@ void UFTAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	if (IsValid(CharOwner))
 	{
-		Garo = CharOwner->GetVertical();
-		Sero = CharOwner->GetHorizontal();
+		Garo = CharOwner->GetHorizontal();
+		Sero = CharOwner->GetVertical();
 	}
+
+	UE_LOG(LogTemp, Warning, TEXT("Garo : %.2f, Sero : %.2f"), Garo, Sero);
 }
