@@ -2,13 +2,14 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
+#include "EngineMinimal.h"
 #include "Animation/AnimInstance.h"
 #include "FTAnimInstance.generated.h"
 
 /**
  * 
  */
+
 UCLASS()
 class FOURTEST_API UFTAnimInstance : public UAnimInstance
 {
@@ -19,6 +20,12 @@ protected :
 	virtual void NativeUpdateAnimation(float DeltaSeconds)	override;
 
 private :
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, meta = (AllowPrivateAccess = true))
-	TWeakObjectPtr<APawn> OwnerPawn;	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class AFTCharacter* CharOwner;	
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
+	float Garo;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
+	float Sero;
 };

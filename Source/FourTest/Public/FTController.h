@@ -18,24 +18,20 @@ public :
 	AFTController();
 
 protected :
-	virtual void SetupInputComponent() override;
+	virtual void BeginPlay() override;
+	virtual void OnPossess(APawn* InPawn)	override;
+	virtual void SetupInputComponent()		override;
+
+public :
+	void OnKeyPressedRun();
+	void OnKeyReleasedRun();
+	void OnKeyPressedJump();
+	
+	void OnMoveForward(float Value);
+	void OnMoveRight(float Value);
+	void OnMouseMoveX(float Value);
 
 private :
-	UFUNCTION()
-	void Set_Walk()		{ bWalk = true;	}
-
-	UFUNCTION()
-	void Set_NotWalk()	{ bWalk = false;}
-
-	UFUNCTION()
-	void Set_Run()		{ bRun = true;	}
-
-	UFUNCTION()
-	void Set_NotRun()	{ bRun = false; }
-	
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Control, meta = (AllowPrivateAccess = "true"))
-	bool bWalk	= { false };
-
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Control, meta = (AllowPrivateAccess = "true"))
-	bool bRun	= { false };
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class AFTCharacter* CharPossess;
 };

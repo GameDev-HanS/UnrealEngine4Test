@@ -36,16 +36,32 @@ void AFTCharacter::BeginPlay()
 	
 }
 
+// Called to bind functionality to input
+void AFTCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+{
+	Super::SetupPlayerInputComponent(PlayerInputComponent);
+}
+
 // Called every frame
 void AFTCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 }
 
-// Called to bind functionality to input
-void AFTCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
+void AFTCharacter::SetVertical(float Value)
 {
-	Super::SetupPlayerInputComponent(PlayerInputComponent);
-
+	Vertical = Value;
+	if (bRun == false)
+	{
+		Vertical *= 0.5f;
+	}
 }
 
+void AFTCharacter::SetHorizontal(float Value)
+{
+	Horizontal = Value;
+	if (bRun == false)
+	{
+		Horizontal *= 0.5f;
+	}
+}

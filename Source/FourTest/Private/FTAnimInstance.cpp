@@ -3,14 +3,22 @@
 
 #include "FTAnimInstance.h"
 
+#include "FTCharacter.h"
+
 void UFTAnimInstance::NativeInitializeAnimation()
 {
 	Super::NativeInitializeAnimation();
-	
-	OwnerPawn = TryGetPawnOwner();
+
+	CharOwner = Cast<AFTCharacter>(TryGetPawnOwner());
 }
 
 void UFTAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 {
 	Super::NativeUpdateAnimation(DeltaSeconds);
+
+	if (IsValid(CharOwner))
+	{
+		Garo = CharOwner->GetVertical();
+		Sero = CharOwner->GetHorizontal();
+	}
 }
