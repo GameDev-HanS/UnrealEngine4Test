@@ -1,0 +1,23 @@
+> C++ 클래스 및 파생 블루프린트 클래스 활용
+C++ 클래스의 성능 + Blueprint의 편의성 활용
+
+> GameModeBase 통한 Unreal Engine 게임 프레임워크 
+- Default Pawn Class
+- PlayerController Class 
+
+> Actor, Pawn, Character 상속 구조 및 Character 파생 클래스 컴포넌트 추가 
+- SpringArm, Camera Component 및 UPROPERTY()
+
+> PlayerController 클래스 SetUpInputComponent 입력 바인딩
+UnrealEngine 4 InputComponent의 Action, Axis Bind
+
+> Character 생명주기 
+Constructor() 
+PostInitProperties()		-> CDO 기반 초기화
+PreInitializeComponent()	-> 컴포넌트 초기화 전
+PostInitializeComponent()	-> 컴포넌트 초기화 직후
+Posses() 				-> PlayerController에게 Pawn이 소유됨.
+SetupInputComponent() 	-> Character에서의 입력 바인딩
+BeginPlay(), Tick(), EndPlay()
+
+> AnimInstance 애니메이션 블루프린트 파생 클래스 활용 애니메이션 재생

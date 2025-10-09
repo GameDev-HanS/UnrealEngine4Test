@@ -13,5 +13,4 @@ UCLASS()
 class FOURTEST_API AFourTestGameModeBase : public AGameModeBase
 {
 	GENERATED_BODY()
-	
 };
