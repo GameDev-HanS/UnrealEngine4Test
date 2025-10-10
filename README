@@ -13,17 +13,22 @@ UnrealEngine 4 InputComponent의 Action, Axis Bind
 
 > Character 생명주기 
 Constructor() 
-PostInitProperties()		-> CDO 기반 초기화
+PostInitProperties()		  -> CDO 기반 초기화
 PreInitializeComponent()	-> 컴포넌트 초기화 전
 PostInitializeComponent()	-> 컴포넌트 초기화 직후
-Posses() 				-> PlayerController에게 Pawn이 소유됨.
-SetupInputComponent() 	-> Character에서의 입력 바인딩
+Posses() 				          -> PlayerController에게 Pawn이 소유됨.
+SetupInputComponent() 	  -> Character에서의 입력 바인딩
 BeginPlay(), Tick(), EndPlay()
+
+> AnimationInstance X Character X Controller 
+언리얼 엔진에서 추구하는 코딩 스타일 공부 -> 기능을 해당하는 클래스를 상속하여서 만들고, 코드를 분해 
+유니티의 경우 하나의 GameObject를 시작으로 여러 컴포넌트를 붙히는 방식이면 언리얼 엔진은 상속 구조를 통해 
+개발되어있는 클래스들을 활용하는것이 주
 
 > 애니메이션 블루프린트 활용 상태 머신
 
-> Animation Blending 통한 걷기, 달리기
+> 애니메이션 블랜드 스페이스 활용 걷기 ( 상, 하, 좌, 우 애니메이션 가중치에 따른 애니메이션 섞기 )
 
-> 애니메이션 노티파이 활용 애니메이션 로그 출력
+> 애니메이션 노티파이 활용 시작, 끝 동작 이벤트 처리
 점프 시작과 점프 중 속도 적용 되다가, 노티파이 활용 착지 시에 키입력 및 속도 0으로 초기화
 
