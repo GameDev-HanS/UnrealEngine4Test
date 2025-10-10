@@ -13,11 +13,11 @@ UnrealEngine 4 InputComponent의 Action, Axis Bind
 
 > Character 생명주기 
 Constructor() 
-PostInitProperties()		  -> CDO 기반 초기화
-PreInitializeComponent()	-> 컴포넌트 초기화 전
+PostInitProperties() -> CDO 기반 초기화
+PreInitializeComponent() -> 컴포넌트 초기화 전
 PostInitializeComponent()	-> 컴포넌트 초기화 직후
-Posses() 				          -> PlayerController에게 Pawn이 소유됨.
-SetupInputComponent() 	  -> Character에서의 입력 바인딩
+Posses() -> PlayerController에게 Pawn이 소유됨.
+SetupInputComponent() -> Character에서의 입력 바인딩
 BeginPlay(), Tick(), EndPlay()
 
 > AnimationInstance X Character X Controller 
