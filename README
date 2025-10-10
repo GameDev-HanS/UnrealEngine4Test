@@ -22,8 +22,9 @@ BeginPlay(), Tick(), EndPlay()
 
 > AnimationInstance X Character X Controller 
 언리얼 엔진에서 추구하는 코딩 스타일 공부 -> 기능을 해당하는 클래스를 상속하여서 만들고, 코드를 분해 
-유니티의 경우 하나의 GameObject를 시작으로 여러 컴포넌트를 붙히는 방식이면 언리얼 엔진은 상속 구조를 통해 
-개발되어있는 클래스들을 활용하는것이 주
+유니티와 언리얼 모두 컴포넌트를 부착하여서 기능을 추가하는 것도 중요하지만
+언리얼 엔진은 상속 구조를 통해 개발되어있는 클래스들을 활용하는것이 중요한것 같다. (Actor, Pawn, Character, AnimationInstance, GameModeBase, etc...)
+기존 클래스를 블루프린트로 파생시키서 비쥬얼 스크립팅이 가능한 것 또한 언리얼 엔진에서의 강점
 
 > 애니메이션 블루프린트 활용 상태 머신
 
