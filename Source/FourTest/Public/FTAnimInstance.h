@@ -19,6 +19,13 @@ protected :
 	virtual void NativeInitializeAnimation()				override;
 	virtual void NativeUpdateAnimation(float DeltaSeconds)	override;
 
+public :
+	UFUNCTION()
+	void AnimNotify_LandStart();
+
+	UFUNCTION()
+	void AnimNotify_LandDone();
+	
 private :
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class AFTCharacter* CharOwner;	
@@ -28,4 +35,7 @@ private :
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
 	float Sero;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Animation, meta = (AllowPrivateAccess = "true"))
+	bool bIsFalling;
 };

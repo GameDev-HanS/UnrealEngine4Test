@@ -25,9 +25,10 @@ public :
 	virtual void Tick(float DeltaTime)		override;
 
 public :
-	bool	GetRun()		const	{ return bRun;		}
-	float	GetVertical()	const	{ return Vertical;	}
+	bool	GetRun()		const	{ return bRun;			}
+	float	GetVertical()	const	{ return Vertical;		}
 	float	GetHorizontal()	const	{ return Horizontal;	}
+	bool	GetLanding()	const	{ return bLanding;		}
 	
 public :
 	UFUNCTION(BlueprintCallable)
@@ -39,9 +40,15 @@ public :
 	UFUNCTION(BlueprintCallable)
 	void SetHorizontal(float Value);
 
+	UFUNCTION(BlueprintCallable)
+	void SetLanding(bool bValue)	{ bLanding = bValue;	}
+
 private :
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Control, meta = (AllowPrivateAccess = "true"))
 	bool bRun			= { false };
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Control, meta = (AllowPrivateAccess = "true"))
+	bool bLanding		= { false };
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Control, meta = (AllowPrivateAccess = "true"))
 	float Vertical		= { 0.f };

@@ -18,9 +18,31 @@ void UFTAnimInstance::NativeUpdateAnimation(float DeltaSeconds)
 
 	if (IsValid(CharOwner))
 	{
-		Garo = CharOwner->GetHorizontal();
-		Sero = CharOwner->GetVertical();
-	}
+		Garo		= CharOwner->GetHorizontal();
+		Sero		= CharOwner->GetVertical();
+		bIsFalling	= CharOwner->GetMovementComponent()->IsFalling();
+	} 
 
-	UE_LOG(LogTemp, Warning, TEXT("Garo : %.2f, Sero : %.2f"), Garo, Sero);
+	UE_LOG(LogTemp, Warning, TEXT("Garo : %.2f, Sero : %.2f, IsFalling : %d"), Garo, Sero, bIsFalling);
+}
+
+void UFTAnimInstance::AnimNotify_LandStart()
+{
+	if (IsValid(CharOwner) == false) return;
+
+	CharOwner->SetLanding(true);
+
+	CharOwner->SetHorizontal(0.f);
+	CharOwner->SetVertical(0.f);
+	
+	UE_LOG(LogTemp, Warning, TEXT("Land Start"));
+}
+
+void UFTAnimInstance::AnimNotify_LandDone()
+{
+	if (IsValid(CharOwner) == false ) return;
+
+	CharOwner->SetLanding(false);
+	
+	UE_LOG(LogTemp, Warning, TEXT("Land Done"));
 }

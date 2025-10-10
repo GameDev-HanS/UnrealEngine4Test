@@ -22,6 +22,8 @@ BeginPlay(), Tick(), EndPlay()
 
 > 애니메이션 블루프린트 활용 상태 머신
 
-> Animation Blending 통한 걷기, 일반 걷기, 달리기, Idle 
+> Animation Blending 통한 걷기, 달리기
 
 > 애니메이션 노티파이 활용 애니메이션 로그 출력
+점프 시작과 점프 중 속도 적용 되다가, 노티파이 활용 착지 시에 키입력 및 속도 0으로 초기화
+

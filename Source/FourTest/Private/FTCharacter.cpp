@@ -25,15 +25,12 @@ AFTCharacter::AFTCharacter()
 void AFTCharacter::PostInitializeComponents()
 {
 	Super::PostInitializeComponents();
-
-	
 }
 
 // Called when the game starts or when spawned
 void AFTCharacter::BeginPlay()
 {
 	Super::BeginPlay();
-	
 }
 
 // Called to bind functionality to input

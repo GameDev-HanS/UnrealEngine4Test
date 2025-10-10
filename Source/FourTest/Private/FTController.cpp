@@ -57,7 +57,7 @@ void AFTController::OnKeyPressedJump()
 {
 	if (IsValid(CharPossess) == false)
 		return;
-
+	
 	CharPossess->Jump();
 }
 
@@ -66,6 +66,9 @@ void AFTController::OnMoveForward(float Value)
 	if (IsValid(CharPossess) == false)
 		return;
 
+	if (CharPossess->GetMovementComponent()->IsFalling() || CharPossess->GetLanding())
+		return;
+	
 	CharPossess->SetVertical(Value);
 	
 	CharPossess->AddMovementInput(CharPossess->GetActorForwardVector(),
@@ -75,6 +78,9 @@ void AFTController::OnMoveForward(float Value)
 void AFTController::OnMoveRight(float Value)
 {
 	if (IsValid(CharPossess) == false)
+		return;
+
+	if (CharPossess->GetMovementComponent()->IsFalling() || CharPossess->GetLanding())
 		return;
 	
 	CharPossess->SetHorizontal(Value);
@@ -86,6 +92,9 @@ void AFTController::OnMoveRight(float Value)
 void AFTController::OnMouseMoveX(float Value)
 {
 	if (IsValid(CharPossess) == false)
+		return;
+
+	if (CharPossess->GetMovementComponent()->IsFalling() || CharPossess->GetLanding())
 		return;
 
 	CharPossess->AddControllerYawInput(Value);

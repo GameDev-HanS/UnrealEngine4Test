@@ -8,15 +8,11 @@
 AFTGameMode::AFTGameMode()
 {
 	static ConstructorHelpers::FClassFinder<AFTCharacter>	BPPawnClass(TEXT("Blueprint'/Game/Blueprints/BP_FTCharacter.BP_FTCharacter_C'"));
-	static ConstructorHelpers::FClassFinder<AFTController>	BPControllerClass(TEXT("Blueprint'/Game/Blueprints/BP_FTController.BP_FTController_C'"));
 	
 	if (BPPawnClass.Succeeded())
 	{
 		DefaultPawnClass = BPPawnClass.Class;
 	}
 
-	if (BPControllerClass.Succeeded())
-	{
-		PlayerControllerClass = BPControllerClass.Class;
-	}
+	PlayerControllerClass = AFTController::StaticClass();
 }
