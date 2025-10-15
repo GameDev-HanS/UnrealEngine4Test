@@ -19,6 +19,7 @@ public :
 
 protected :
 	virtual void BeginPlay() override;
+	virtual void PostInitializeComponents() override;
 	virtual void OnPossess(APawn* InPawn)	override;
 	virtual void SetupInputComponent()		override;
 
@@ -26,12 +27,17 @@ public :
 	void OnKeyPressedRun();
 	void OnKeyReleasedRun();
 	void OnKeyPressedJump();
+	void OnKeyPressedAttack();
 	
 	void OnMoveForward(float Value);
 	void OnMoveRight(float Value);
 	void OnMouseMoveX(float Value);
+	void OnMouseMoveY(float Value);
 
 private :
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 	class AFTCharacter* CharPossess;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+	class UUserWidget*	StatWidget;
 };

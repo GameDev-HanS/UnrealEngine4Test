@@ -4,8 +4,14 @@
 
 #include "EngineMinimal.h"
 #include "GameFramework/Character.h"
-#include "UObject/StrongObjectPtr.h"
 #include "FTCharacter.generated.h"
+
+UENUM()
+enum class EControlMode
+{
+	GTA,
+	DIABLO,
+};
 
 UCLASS()
 class FOURTEST_API AFTCharacter : public ACharacter
@@ -43,6 +49,10 @@ public :
 	UFUNCTION(BlueprintCallable)
 	void SetLanding(bool bValue)	{ bLanding = bValue;	}
 
+	void Attack();
+
+	void SetControllMode(EControlMode NewControlMode);
+	
 private :
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = Control, meta = (AllowPrivateAccess = "true"))
 	bool bRun			= { false };
@@ -61,7 +71,16 @@ private :
 	
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	UCameraComponent*		CamComponent;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, Category = Stat, meta = (AllowPrivateAccess = "true"))
+	class UStatComponent*	StatComponent;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = Camera, meta = (AllowPrivateAccess = "true"))
 	float					ArmLength = { 500.f };
+
+	UPROPERTY(VisibleAnywhere,BlueprintReadWrite, Category = Projectile, meta = (AllowPrivateAccess = "true"))
+	TSubclassOf<class AFTProjectile> ProjectileClass;
+
+	UPROPERTY(VisibleAnywhere, Category = ControllMode)
+	EControlMode ControlMode = { EControlMode::GTA };
 };

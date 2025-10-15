@@ -29,7 +29,15 @@ BeginPlay(), Tick(), EndPlay()
 > 애니메이션 블루프린트 활용 상태 머신
 
 > 애니메이션 블랜드 스페이스 활용 걷기 ( 상, 하, 좌, 우 애니메이션 가중치에 따른 애니메이션 섞기 )
+- Animation Blend Space
 
 > 애니메이션 노티파이 활용 시작, 끝 동작 이벤트 처리
 점프 시작과 점프 중 속도 적용 되다가, 노티파이 활용 착지 시에 키입력 및 속도 0으로 초기화
+- Animation Notify
 
+> Skeletal Mesh Component의 뼈 계층 확인 및 소켓 통한 투사체 발사
+- Projectile Class : BoxComponent, StaticMeshComponent, ProjectileMovement
+- Bone Socket
+- Spawn Actor 
+
+> 

@@ -1,7 +1,11 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 
+
 #include "FTCharacter.h"
+#include "FTProjectile.h"
+#include "StatComponent.h"
+#include "Engine/SkeletalMeshSocket.h"
 
 // Sets default values
 AFTCharacter::AFTCharacter()
@@ -14,12 +18,23 @@ AFTCharacter::AFTCharacter()
 	
 	CamComponent	= CreateDefaultSubobject<UCameraComponent>(TEXT("COM_CAM"));
 	CamComponent->SetupAttachment(ArmComponent);
+
+	StatComponent	= CreateDefaultSubobject<UStatComponent>(TEXT("STAT"));
 	
 	ArmComponent->TargetArmLength = ArmLength;
 
 	constexpr float CapsuleHeight = 88.f;
 	GetMesh()->SetRelativeLocation(FVector(0.f, 0.f, -CapsuleHeight));
 	GetMesh()->SetRelativeRotation(FRotator(0.f, -90.f, 0.f));
+
+	static ConstructorHelpers::FClassFinder<AFTProjectile> ProjectileBPClass(TEXT("Blueprint'/Game/Blueprints/BP_FTBullet.BP_FTBullet_C'"));
+
+	if (!ensure(ProjectileBPClass.Succeeded()))
+		return;
+	
+	ProjectileClass = ProjectileBPClass.Class;
+
+	SetControllMode(EControlMode::GTA);
 }
 
 void AFTCharacter::PostInitializeComponents()
@@ -61,4 +76,67 @@ void AFTCharacter::SetHorizontal(float Value)
 	{
 		Horizontal *= 0.5f;
 	}
+}
+
+void AFTCharacter::Attack()
+{
+	FName ProjectileSocket(TEXT("Muzzle_Front_NoAnimation"));
+	
+	class USkeletalMeshSocket const* MuzzleSocket = GetMesh()->GetSocketByName(ProjectileSocket);
+
+	auto SocketTransform = GetMesh()->GetSocketTransform(ProjectileSocket);
+
+	const FActorSpawnParameters SpawnParameters;
+	
+	AFTProjectile* Porjectile = GetWorld()->SpawnActor<AFTProjectile>(
+		ProjectileClass,
+		SocketTransform.GetLocation(),
+		GetActorRotation());
+
+	UE_LOG(LogTemp, Warning, TEXT("Attack!"));
+}
+
+void AFTCharacter::SetControllMode(EControlMode NewControlMode)
+{
+	if (ControlMode == NewControlMode) return;
+
+	GetCharacterMovement()->bOrientRotationToMovement	= true;
+	GetCharacterMovement()->RotationRate				= FRotator(0.f, 720.f, 0.f);		
+	
+	switch(NewControlMode)
+	{
+	case EControlMode::GTA :
+		{
+			ArmLength = 500.f;
+			ArmComponent->TargetArmLength = ArmLength;
+
+			ArmComponent->SetRelativeRotation(FRotator::ZeroRotator);
+
+			ArmComponent->bUsePawnControlRotation	= true;	// 컨트롤러 회전에 따라간다.
+			ArmComponent->bInheritPitch				= true; // 컨트롤러 회전 값을 적용한다.
+			ArmComponent->bInheritYaw				= true;
+			ArmComponent->bInheritRoll				= true;
+			ArmComponent->bDoCollisionTest			= true;
+			bUseControllerRotationYaw				= false; // 컨트롤러 Z 축 회전
+		}
+		break;
+	case EControlMode::DIABLO :
+		{
+			ArmLength = 800.f;
+			ArmComponent->TargetArmLength = ArmLength;
+			
+			ArmComponent->SetRelativeRotation(FRotator(-45.f, 0.f, 0.f));
+			ArmComponent->bUsePawnControlRotation	= false;	// 컨트롤러 회전에 따라간다.
+			ArmComponent->bInheritPitch				= false; // 컨트롤러 회전 값을 적용한다.
+			ArmComponent->bInheritYaw				= false;
+			ArmComponent->bInheritRoll				= false;
+			ArmComponent->bDoCollisionTest			= false;
+			bUseControllerRotationYaw				= true; // 컨트롤러 Z 축 회전
+		}
+		break;
+	default :
+		break;
+	}
+
+	ControlMode = NewControlMode;
 }

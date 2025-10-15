@@ -2,7 +2,6 @@
 
 
 #include "FTAnimInstance.h"
-
 #include "FTCharacter.h"
 
 void UFTAnimInstance::NativeInitializeAnimation()

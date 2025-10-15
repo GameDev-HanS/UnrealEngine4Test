@@ -16,5 +16,9 @@ class FOURTEST_API AFTGameMode : public AGameModeBase
 
 public :
 	AFTGameMode();
-	
+
+protected :
+	virtual void PostInitializeComponents() override;
+	virtual void PostLogin(APlayerController* NewPlayer) override;
+	virtual void BeginPlay() override;
 };
