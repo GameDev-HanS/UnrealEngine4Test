@@ -47,3 +47,7 @@ BeginPlay(), Tick(), EndPlay()
 > 네비게이션 매시 활용 이동
 
 > Tick이 아닌, Timer 설정 동작 
+
+> BehaviorTree 및 BlackBoardData
+- BTTask 노드 만들어보기 ( 네비게이션 시스템에서 이동할 위치를 결정하는 노드 ) 
+- 행동 트리 툴을 통한 AI 

@@ -6,76 +6,53 @@
 #include "NavigationSystem.h"
 #include "FourTest/FourTest.h"
 #include "Kismet/GameplayStatics.h"
+#include "BehaviorTree/BlackboardData.h"
+#include "BehaviorTree/BehaviorTree.h"
+#include "BehaviorTree/BlackboardComponent.h"
 
 AFTEnemyController::AFTEnemyController()
 {
 	PrimaryActorTick.bCanEverTick = false;
-}
 
-void AFTEnemyController::MoveRandomLocation()
-{
-	APawn* ControlledPawn = GetPawn();
+	static ConstructorHelpers::FObjectFinder<UBlackboardData>	EnemyBD(TEXT("BlackboardData'/Game/AI/BD_Enemy.BD_Enemy'"));
+	static ConstructorHelpers::FObjectFinder<UBehaviorTree>		EnemyBT(TEXT("BehaviorTree'/Game/AI/BT_Enemy.BT_Enemy'"));
 
-	if (ControlledPawn == nullptr)
-		return;
-
-	UE_LOG(FourTest, Warning, TEXT("GetPawn()"));
+	BlackboardEnemy		= CreateDefaultSubobject<UBlackboardData>(TEXT("BLACKBOARD"));
+	BehaviorTreeEnemy	= CreateDefaultSubobject<UBehaviorTree>(TEXT("BehaviorTree"));
 	
-	UNavigationSystemV1* NavSystem  = UNavigationSystemV1::GetCurrent(GetWorld());
-
-	if (NavSystem == nullptr)
-		return;
-	
-	UE_LOG(FourTest, Warning, TEXT("Find NavSystem"));
-
-	StartLocation = ControlledPawn->GetActorLocation();
-	
-	FNavLocation NavLocation;
-
-	bool bSet;
-	do
+	if (EnemyBD.Succeeded())
 	{
-		bSet = NavSystem->GetRandomPointInNavigableRadius(
-		StartLocation,
-		MoveRange,
-		NavLocation);
+		BlackboardEnemy = EnemyBD.Object;
 	}
-	while (bSet == false);
 
-	UE_LOG(FourTest, Warning, TEXT("Find Place To Go"));
-	
-	MoveToLocation(NavLocation);
-
-	// Draw Debug
-	UKismetSystemLibrary::DrawDebugLine(
-		GetWorld(),
-		StartLocation,
-		NavLocation,
-		FColor::Red,
-		2.f,
-		10.f);
-
-	UKismetSystemLibrary::DrawDebugSphere(
-	GetWorld(),
-	StartLocation, 100, 24, FColor::Black, 2.f, 10.f);
-
-	UKismetSystemLibrary::DrawDebugSphere(
-	GetWorld(),
-	NavLocation, 100, 24, FColor::Black, 2.f, 10.f);
+	if (EnemyBT.Succeeded())
+	{
+		BehaviorTreeEnemy = EnemyBT.Object;
+	}
 }
 
 void AFTEnemyController::OnPossess(APawn* InPawn)
 {
 	Super::OnPossess(InPawn);
 
-	GetWorld()->GetTimerManager().SetTimer(MoveTimer,
-		this, &AFTEnemyController::MoveRandomLocation,
-		2.f, true);
+	// GetWorld()->GetTimerManager().SetTimer(MoveTimer,
+	// 	this, &AFTEnemyController::MoveRandomLocation,
+	// 	2.f, true);
+
+	if (UseBlackboard(BlackboardEnemy, Blackboard))
+	{
+		Blackboard->InitializeBlackboard(*BlackboardEnemy);
+
+		Blackboard->SetValueAsFloat(TEXT("MoveRange"), 1000.f);
+		
+		// AI Controller의 Blackboard 멤버
+		RunBehaviorTree(BehaviorTreeEnemy);
+	}
 }
 
 void AFTEnemyController::OnUnPossess()
 {
 	Super::OnUnPossess();
 
-	GetWorld()->GetTimerManager().ClearTimer(MoveTimer);
+	//GetWorld()->GetTimerManager().ClearTimer(MoveTimer);
 }

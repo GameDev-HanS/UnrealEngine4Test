@@ -31,4 +31,10 @@ private :
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadWrite, meta = (AllowPrivateAccess = true))
 	float MoveRange = 1000.f;
+
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	class UBlackboardData*	BlackboardEnemy;
+	
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, meta = (AllowPrivateAccess = true))
+	class UBehaviorTree*	BehaviorTreeEnemy;
 };
