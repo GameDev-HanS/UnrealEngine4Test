@@ -40,4 +40,10 @@ BeginPlay(), Tick(), EndPlay()
 - Bone Socket
 - Spawn Actor 
 
-> 
+> WidgetComponent 부착 통한 Enemy 체력 시각화
+
+> 몬스터 클래스 및 AI Controller 
+
+> 네비게이션 매시 활용 이동
+
+> Tick이 아닌, Timer 설정 동작 

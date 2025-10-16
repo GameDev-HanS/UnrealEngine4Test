@@ -2,6 +2,8 @@
 
 
 #include "FTProjectile.h"
+
+#include "FTCharacter.h"
 #include "FourTest/FourTest.h"
 #include "Components/BoxComponent.h"
 #include "GameFramework/ProjectileMovementComponent.h"
@@ -48,8 +50,13 @@ void AFTProjectile::OnOverlapBegin(UPrimitiveComponent* OverlappedComponent, AAc
 {
 	UE_LOG(FourTest, Warning, TEXT("OnOverlapBegin"));
 
-	SetActorEnableCollision(false);
-	SetActorHiddenInGame(true);
-	Destroy();
+	auto Player = Cast<AFTCharacter>(OtherActor);
+
+	if (Player == nullptr)
+	{
+		SetActorEnableCollision(false);
+		SetActorHiddenInGame(true);
+		Destroy();
+	}
 }
 
